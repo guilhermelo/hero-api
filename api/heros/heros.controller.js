@@ -1,4 +1,4 @@
-var Heros = require('./heros.dao');
+var dao = require('./heros.dao');
 
 exports.createHero = function(req, res, next) {
     var hero = {
@@ -6,7 +6,7 @@ exports.createHero = function(req, res, next) {
         description: req.body.description
     };
 
-    Heros.create(hero, function(err, hero) {
+    dao.create(hero, function(err, hero) {
         if(err) {
             res.json({
                 error: err
@@ -20,7 +20,7 @@ exports.createHero = function(req, res, next) {
 }
 
 exports.getHeros = function(req, res, next) {
-    Heros.get({}, function(err, heros) {
+    dao.get({}, function(err, heros) {
         if(err) {
             res.json({
                 error: err
@@ -34,7 +34,7 @@ exports.getHeros = function(req, res, next) {
 }
 
 exports.getHero = function(req, res, next) {
-    Heros.get({_id: req.params.id}, function(err, heros) {
+    dao.get({_id: req.params.id}, function(err, heros) {
         if(err) { 
             res.json({
                 error: err
@@ -51,7 +51,8 @@ exports.updateHero = function(req, res, next) {
         name: req.body.name,
         description: req.body.description
     }
-    Heros.update({_id: req.params.id}, hero, function(err, hero) {
+
+    dao.update({_id: req.params.id}, hero, function(err, hero) {
         if(err) {
             res.json({
                 error : err
@@ -65,7 +66,7 @@ exports.updateHero = function(req, res, next) {
 }
 
 exports.removeHero = function(req, res, next) {
-    Heros.delete({_id: req.params.id}, function(err, hero) {
+    dao.delete({_id: req.params.id}, function(err, hero) {
         if(err) {
             res.json({
                 error : err
